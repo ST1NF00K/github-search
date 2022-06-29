@@ -48,6 +48,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
               onPressed: () {
                 _favoritesStore.save(widget.user);
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  duration: Duration(seconds: 1),
                   content: Text("Você adicionou um favorito!"),
                 ));
               }),
@@ -56,7 +57,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
       body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Observer(builder: (BuildContext context) {
-            User data = _githubStore.findByIdRequest.value as User;
+            User? data = _githubStore.findByIdRequest.value;
             if (_githubStore.findByIdRequest.status == FutureStatus.pending) {
               return const Center(
                 child: CircularProgressIndicator(),
@@ -65,7 +66,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                 FutureStatus.rejected) {
               return const Center(child: Text('Ocorreu um erro.'));
             } else {
-              return _buildUserDetails(data);
+              return _buildUserDetails(data!);
             }
           })),
     );

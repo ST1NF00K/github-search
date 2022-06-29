@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:github_search/core/init_dependencies.dart';
@@ -22,9 +20,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _searchQueryController = TextEditingController();
-    _searchQueryController.text = '';
-    _githubStore = getIt<GithubStore>()..findAll(_searchQueryController.text);
+    _searchQueryController = TextEditingController(text: '');
+    _githubStore = getIt<GithubStore>();
   }
 
   @override
@@ -52,7 +49,6 @@ class _HomePageState extends State<HomePage> {
             icon: const Icon(Icons.close),
             onPressed: () {
               _searchQueryController.text = '';
-              log(_searchQueryController.text);
             },
           ),
         ],
@@ -68,12 +64,13 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Observer(builder: (BuildContext context) {
           var data = _githubStore.findAllRequest.value;
-          if (_githubStore.findAllRequest.status == FutureStatus.pending) {
+          if (_searchQueryController.text == '') {
+            return const SizedBox();
+          } else if (_githubStore.findAllRequest.status ==
+              FutureStatus.pending) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (_searchQueryController.text == '') {
-            return const Center(child: Text(''));
           } else if (_githubStore.findAllRequest.status ==
               FutureStatus.rejected) {
             return const Center(child: Text('Ocorreu um erro.'));
