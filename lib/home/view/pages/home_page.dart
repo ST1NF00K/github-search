@@ -87,9 +87,10 @@ class _HomePageState extends State<HomePage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => UserDetailsPage(
-                                  user: data[index],
-                                )));
+                          builder: (context) => UserDetailsPage(
+                            user: data[index],
+                          ),
+                        ));
                   },
                 );
               },

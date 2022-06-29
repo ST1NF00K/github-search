@@ -23,7 +23,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
   void initState() {
     super.initState();
     _githubStore = getIt<GithubStore>()..findById(widget.user.id);
-    _favoritesStore = getIt<FavoritesStore>()..findAll();
+    _favoritesStore = getIt<FavoritesStore>();
   }
 
   @override
@@ -31,15 +31,15 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
     return Scaffold(
       appBar: AppBar(
         title: Observer(builder: (context) {
-          if (_githubStore.findByIdRequest.status == FutureStatus.pending) {
+          var request = _githubStore.findByIdRequest;
+          if (request.status == FutureStatus.pending) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (_githubStore.findByIdRequest.status ==
-              FutureStatus.rejected) {
-            return const Center(child: Text('Ocorreu um erro.'));
+          } else if (request.status == FutureStatus.rejected) {
+            return const Center(child: Text('Username não encontrado'));
           } else {
-            return Text(_githubStore.findByIdRequest.value!.login);
+            return Text(request.value!.login);
           }
         }),
         actions: [
@@ -57,16 +57,15 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
       body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Observer(builder: (BuildContext context) {
-            User? data = _githubStore.findByIdRequest.value;
-            if (_githubStore.findByIdRequest.status == FutureStatus.pending) {
+            var request = _githubStore.findByIdRequest;
+            if (request.status == FutureStatus.pending) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (_githubStore.findByIdRequest.status ==
-                FutureStatus.rejected) {
+            } else if (request.status == FutureStatus.rejected) {
               return const Center(child: Text('Ocorreu um erro.'));
             } else {
-              return _buildUserDetails(data!);
+              return _buildUserDetails(request.value!);
             }
           })),
     );
@@ -75,28 +74,39 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
   Widget _buildUserDetails(User data) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        const SizedBox(height: 20.0),
         Center(
           child: CircleAvatar(
             radius: 90.0,
             backgroundImage: NetworkImage(data.avatarUrl),
           ),
         ),
-        const SizedBox(height: 40.0),
-        Text(
-          data.email,
-          style: const TextStyle(fontSize: 18.0),
-        ),
-        Text(
-          data.location,
-          style: const TextStyle(fontSize: 18.0),
-        ),
-        Text(
-          data.bio,
-          style: const TextStyle(fontSize: 18.0),
-        ),
+        getUserInfo(data.email, 'E-mail'),
+        getUserInfo(data.location, 'Location'),
+        getUserInfo(data.bio, 'Description'),
       ],
     );
+  }
+
+  Widget getUserInfo(String data, String title) {
+    return data != ''
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                data,
+                style: const TextStyle(fontSize: 18.0),
+              ),
+            ],
+          )
+        : const SizedBox();
   }
 }
