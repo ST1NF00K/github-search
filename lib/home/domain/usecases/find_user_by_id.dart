@@ -6,7 +6,7 @@ class FindUserById {
 
   FindUserById(this._githubService);
 
-  Future<User> execute(int id) async {
-      return await _githubService.findById(id);
+  Future<User>? execute(int id) async {
+      return await _githubService.findById(id)!;
   }
 }

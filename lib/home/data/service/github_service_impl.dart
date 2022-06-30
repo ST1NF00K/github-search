@@ -3,6 +3,8 @@ import 'package:github_search/home/data/models/user_model.dart';
 import 'package:github_search/home/domain/service/github_service.dart';
 import 'package:github_search/home/domain/entity/user.dart';
 
+
+
 class GithubServiceImpl implements GithubService {
   final String _baseUrl = 'https://api.github.com';
   final Dio _dio;
@@ -10,7 +12,7 @@ class GithubServiceImpl implements GithubService {
   GithubServiceImpl(this._dio);
 
   @override
-  Future<List<User>> findAll(String searchQuery) async {
+  Future<List<User>>? findAll(String searchQuery) async {
     try {
       final response = await _dio.get('$_baseUrl/search/users',
           queryParameters: {
@@ -30,7 +32,7 @@ class GithubServiceImpl implements GithubService {
   }
 
   @override
-  Future<User> findById(int id) async {
+  Future<User>? findById(int id) async {
     try {
       final response = await _dio.get('$_baseUrl/user/$id');
       return UserModel.fromJson(response.data);

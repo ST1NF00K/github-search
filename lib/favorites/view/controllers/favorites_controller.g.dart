@@ -6,10 +6,11 @@ part of 'favorites_controller.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$FavoritesStore on _FavoritesStoreBase, Store {
-  final _$findAllRequestAtom = Atom(name: '_FavoritesStoreBase.findAllRequest');
+  late final _$findAllRequestAtom =
+      Atom(name: '_FavoritesStoreBase.findAllRequest', context: context);
 
   @override
   ObservableFuture<List<User>> get findAllRequest {
@@ -24,7 +25,8 @@ mixin _$FavoritesStore on _FavoritesStoreBase, Store {
     });
   }
 
-  final _$deleteRequestAtom = Atom(name: '_FavoritesStoreBase.deleteRequest');
+  late final _$deleteRequestAtom =
+      Atom(name: '_FavoritesStoreBase.deleteRequest', context: context);
 
   @override
   ObservableFuture<void> get deleteRequest {
@@ -39,7 +41,8 @@ mixin _$FavoritesStore on _FavoritesStoreBase, Store {
     });
   }
 
-  final _$saveRequestAtom = Atom(name: '_FavoritesStoreBase.saveRequest');
+  late final _$saveRequestAtom =
+      Atom(name: '_FavoritesStoreBase.saveRequest', context: context);
 
   @override
   ObservableFuture<void> get saveRequest {
@@ -54,8 +57,8 @@ mixin _$FavoritesStore on _FavoritesStoreBase, Store {
     });
   }
 
-  final _$_FavoritesStoreBaseActionController =
-      ActionController(name: '_FavoritesStoreBase');
+  late final _$_FavoritesStoreBaseActionController =
+      ActionController(name: '_FavoritesStoreBase', context: context);
 
   @override
   void findAll() {
@@ -69,7 +72,7 @@ mixin _$FavoritesStore on _FavoritesStoreBase, Store {
   }
 
   @override
-  void save( user) {
+  void save(User user) {
     final _$actionInfo = _$_FavoritesStoreBaseActionController.startAction(
         name: '_FavoritesStoreBase.save');
     try {

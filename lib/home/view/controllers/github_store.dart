@@ -27,11 +27,11 @@ abstract class _GithubStore with Store {
 
   @action
   void findAll(String searchQuery) {
-    findAllRequest = _findAllUsers.execute(searchQuery).asObservable();
+    findAllRequest = _findAllUsers.execute(searchQuery)!.asObservable();
   }
 
   @action
   void findById(int id) {
-    findByIdRequest = _findUserById.execute(id).asObservable();
+    findByIdRequest = _findUserById.execute(id)!.asObservable();
   }
 }

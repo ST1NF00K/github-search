@@ -5,7 +5,7 @@ import 'package:sqflite/sqflite.dart';
 
 class FavoritesDatasourceImpl implements FavoritesDatasource {
   @override
-  Future<List<User>> findAll() async {
+  Future<List<User>>? findAll() async {
     final Database db = await DatabaseConnection.connectDB();
 
     final List<Map<String, dynamic>> maps = await db.query('favorites');
@@ -23,7 +23,7 @@ class FavoritesDatasourceImpl implements FavoritesDatasource {
   }
 
   @override
-  Future<void> save(User user) async {
+  Future<void>? save(User user) async {
     final Database db = await DatabaseConnection.connectDB();
 
     await db.insert(
@@ -34,7 +34,7 @@ class FavoritesDatasourceImpl implements FavoritesDatasource {
   }
 
   @override
-  Future<void> delete(User user) async {
+  Future<void>? delete(User user) async {
     final Database db = await DatabaseConnection.connectDB();
 
     await db.delete(

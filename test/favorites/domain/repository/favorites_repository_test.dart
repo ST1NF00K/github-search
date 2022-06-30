@@ -12,10 +12,10 @@ import '../../../shared/shared_mocks.dart';
 class FavoritesDatasourceMock extends Mock implements FavoritesDatasource {}
 
 void main() {
-  late final FavoritesDatasource favoritesDatasource;
-  late final FavoritesRepository repository;
+   late final FavoritesDatasource favoritesDatasource;
+   late final FavoritesRepository repository;
 
-  setUp(() {
+  setUpAll(() {
     favoritesDatasource = FavoritesDatasourceMock();
     repository = FavoritesRepositoryImpl(favoritesDatasource);
   });
@@ -29,7 +29,7 @@ void main() {
 
       final result = await repository.findAll();
 
-      expect(result.first.email, contains('livia'));
+      expect(result!.first.email, contains('livia'));
     });
 
     test('repository should throw an error if could not find all', () async {

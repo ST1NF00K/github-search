@@ -7,6 +7,6 @@ class FindAllFavorites {
   FindAllFavorites(this._favoritesRepository);
 
   Future<List<User>> execute() async {
-    return await _favoritesRepository.findAll();
+    return await _favoritesRepository.findAll()!;
   }
 }

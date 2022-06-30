@@ -8,16 +8,16 @@ class FavoritesRepositoryImpl implements FavoritesRepository {
   FavoritesRepositoryImpl(this._favoritesDatasource);
 
   @override
-  Future<List<User>> findAll() async {
+  Future<List<User>>? findAll() async {
     try {
-      return await _favoritesDatasource.findAll();
+      return await _favoritesDatasource.findAll()!;
     } catch (e) {
       throw Exception("Error occured finding all favorites in local db.");
     }
   }
 
   @override
-  Future<void> save(User user) async {
+  Future<void>? save(User user) async {
     try {
       await _favoritesDatasource.save(user);
     } catch (e) {
@@ -26,7 +26,7 @@ class FavoritesRepositoryImpl implements FavoritesRepository {
   }
 
   @override
-  Future<void> delete(User user) async {
+  Future<void>? delete(User user) async {
     try {
       await _favoritesDatasource.delete(user);
     } catch (e) {

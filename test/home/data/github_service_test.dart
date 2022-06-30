@@ -10,9 +10,9 @@ import 'package:github_search/home/domain/service/github_service.dart';
 import '../../shared/shared_mocks.dart';
 
 void main() {
-  late final Dio dio;
-  late final DioAdapter dioAdapter;
-  late final GithubService service;
+  late Dio dio;
+  late DioAdapter dioAdapter;
+  late GithubService service;
   const path = 'https://api.github.com/search/users';
 
   setUp(() {

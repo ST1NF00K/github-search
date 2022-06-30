@@ -8,6 +8,7 @@ import 'package:mockito/mockito.dart';
 import '../../../shared/shared_mocks.dart';
 import '../../mocks/mock_github_service.dart';
 
+
 void main() {
   late final FindAllUsers usecase;
   late final MockGithubService mockGithubService;

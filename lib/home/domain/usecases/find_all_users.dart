@@ -6,7 +6,7 @@ class FindAllUsers {
 
   FindAllUsers(this._githubService);
 
-  Future<List<User>> execute(String searchQuery) async {
-    return await _githubService.findAll(searchQuery);
+  Future<List<User>>? execute(String searchQuery) async {
+    return await _githubService.findAll(searchQuery)!;
   }
 }
