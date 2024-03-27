@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/favorites/data/favorites_datasource.dart';
-import 'package:github_search/favorites/domain/repository/favorites_repository.dart';
-import 'package:github_search/favorites/domain/repository/favorites_repository_impl.dart';
-import 'package:github_search/home/data/models/user_model.dart';
+import 'package:github_search/features/favorites/data/favorites_datasource.dart';
+import 'package:github_search/features/favorites/domain/repository/favorites_repository.dart';
+import 'package:github_search/features/favorites/domain/repository/favorites_repository_impl.dart';
+import 'package:github_search/features/home/data/models/user_model.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../shared/shared_mocks.dart';
@@ -12,8 +12,8 @@ import '../../../shared/shared_mocks.dart';
 class FavoritesDatasourceMock extends Mock implements FavoritesDatasource {}
 
 void main() {
-   late final FavoritesDatasource favoritesDatasource;
-   late final FavoritesRepository repository;
+  late final FavoritesDatasource favoritesDatasource;
+  late final FavoritesRepository repository;
 
   setUpAll(() {
     favoritesDatasource = FavoritesDatasourceMock();

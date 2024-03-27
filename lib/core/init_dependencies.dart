@@ -1,18 +1,18 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:github_search/favorites/data/favorites_datasource.dart';
-import 'package:github_search/favorites/data/favorites_datasource_impl.dart';
-import 'package:github_search/favorites/domain/repository/favorites_repository.dart';
-import 'package:github_search/favorites/domain/repository/favorites_repository_impl.dart';
-import 'package:github_search/favorites/domain/usecases/delete_favorite.dart';
-import 'package:github_search/favorites/domain/usecases/find_all_favorites.dart';
-import 'package:github_search/favorites/domain/usecases/save_favorite.dart';
-import 'package:github_search/favorites/view/controllers/favorites_controller.dart';
-import 'package:github_search/home/data/service/github_service_impl.dart';
-import 'package:github_search/home/domain/service/github_service.dart';
-import 'package:github_search/home/domain/usecases/find_all_users.dart';
-import 'package:github_search/home/domain/usecases/find_user_by_id.dart';
-import 'package:github_search/home/view/controllers/github_store.dart';
+import 'package:github_search/features/favorites/data/favorites_datasource.dart';
+import 'package:github_search/features/favorites/data/favorites_datasource_impl.dart';
+import 'package:github_search/features/favorites/domain/repository/favorites_repository.dart';
+import 'package:github_search/features/favorites/domain/repository/favorites_repository_impl.dart';
+import 'package:github_search/features/favorites/domain/usecases/delete_favorite.dart';
+import 'package:github_search/features/favorites/domain/usecases/find_all_favorites.dart';
+import 'package:github_search/features/favorites/domain/usecases/save_favorite.dart';
+import 'package:github_search/features/favorites/view/controllers/favorites_controller.dart';
+import 'package:github_search/features/home/data/service/github_service_impl.dart';
+import 'package:github_search/features/home/domain/service/github_service.dart';
+import 'package:github_search/features/home/domain/usecases/find_all_users.dart';
+import 'package:github_search/features/home/domain/usecases/find_user_by_id.dart';
+import 'package:github_search/features/home/view/controllers/github_store.dart';
 
 final getIt = GetIt.instance;
 
@@ -38,18 +38,13 @@ void setupRepositories() {
 
 void setupUsecases() {
   // home
-  getIt.registerFactory<FindAllUsers>(
-      () => FindAllUsers(getIt<GithubService>()));
-  getIt.registerFactory<FindUserById>(
-      () => FindUserById(getIt<GithubService>()));
+  getIt.registerFactory<FindAllUsers>(() => FindAllUsers(getIt<GithubService>()));
+  getIt.registerFactory<FindUserById>(() => FindUserById(getIt<GithubService>()));
 
   //favorites
-  getIt.registerFactory<FindAllFavorites>(
-      () => FindAllFavorites(getIt<FavoritesRepository>()));
-  getIt.registerFactory<SaveFavorite>(
-      () => SaveFavorite(getIt<FavoritesRepository>()));
-  getIt.registerFactory<DeleteFavorite>(
-      () => DeleteFavorite(getIt<FavoritesRepository>()));
+  getIt.registerFactory<FindAllFavorites>(() => FindAllFavorites(getIt<FavoritesRepository>()));
+  getIt.registerFactory<SaveFavorite>(() => SaveFavorite(getIt<FavoritesRepository>()));
+  getIt.registerFactory<DeleteFavorite>(() => DeleteFavorite(getIt<FavoritesRepository>()));
 }
 
 void setupControllers() {
