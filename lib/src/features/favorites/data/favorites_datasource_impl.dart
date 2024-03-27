@@ -1,6 +1,6 @@
-import 'package:github_search/features/favorites/data/favorites_datasource.dart';
-import 'package:github_search/features/favorites/utils/database_connection.dart';
-import 'package:github_search/features/home/domain/entity/user.dart';
+import 'package:github_search/src/features/favorites/data/favorites_datasource.dart';
+import 'package:github_search/src/features/favorites/utils/database_connection.dart';
+import 'package:github_search/src/features/home/domain/entity/user.dart';
 import 'package:sqflite/sqflite.dart';
 
 class FavoritesDatasourceImpl implements FavoritesDatasource {

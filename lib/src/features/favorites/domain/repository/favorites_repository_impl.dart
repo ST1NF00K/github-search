@@ -1,6 +1,6 @@
-import 'package:github_search/features/favorites/data/favorites_datasource.dart';
-import 'package:github_search/features/favorites/domain/repository/favorites_repository.dart';
-import 'package:github_search/features/home/domain/entity/user.dart';
+import 'package:github_search/src/features/favorites/data/favorites_datasource.dart';
+import 'package:github_search/src/features/favorites/domain/repository/favorites_repository.dart';
+import 'package:github_search/src/features/home/domain/entity/user.dart';
 
 class FavoritesRepositoryImpl implements FavoritesRepository {
   final FavoritesDatasource _favoritesDatasource;

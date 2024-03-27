@@ -1,6 +1,6 @@
-import 'package:github_search/features/home/domain/entity/user.dart';
-import 'package:github_search/features/home/domain/usecases/find_all_users.dart';
-import 'package:github_search/features/home/domain/usecases/find_user_by_id.dart';
+import 'package:github_search/src/features/home/domain/entity/user.dart';
+import 'package:github_search/src/features/home/domain/usecases/find_all_users.dart';
+import 'package:github_search/src/features/home/domain/usecases/find_user_by_id.dart';
 import 'package:mobx/mobx.dart';
 
 part 'github_store.g.dart';

@@ -1,4 +1,4 @@
-import 'package:github_search/features/home/domain/entity/user.dart';
+import 'package:github_search/src/features/home/domain/entity/user.dart';
 
 abstract class FavoritesRepository {
   Future<List<User>>? findAll();

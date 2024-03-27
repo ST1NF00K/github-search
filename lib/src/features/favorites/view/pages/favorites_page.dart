@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:github_search/core/init_dependencies.dart';
-import 'package:github_search/features/favorites/view/controllers/favorites_controller.dart';
-import 'package:github_search/features/home/view/pages/user_details_page.dart';
+import 'package:github_search/src/core/init_dependencies.dart';
+import 'package:github_search/src/features/favorites/view/controllers/favorites_controller.dart';
+import 'package:github_search/src/features/home/view/pages/user_details_page.dart';
 import 'package:mobx/mobx.dart';
 
 class FavoritesPage extends StatefulWidget {

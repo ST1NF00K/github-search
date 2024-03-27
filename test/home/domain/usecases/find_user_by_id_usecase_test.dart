@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/features/home/data/models/user_model.dart';
-import 'package:github_search/features/home/domain/usecases/find_user_by_id.dart';
+import 'package:github_search/src/features/home/data/models/user_model.dart';
+import 'package:github_search/src/features/home/domain/usecases/find_user_by_id.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../shared/shared_mocks.dart';

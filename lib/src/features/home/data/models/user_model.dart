@@ -1,4 +1,4 @@
-import 'package:github_search/features/home/domain/entity/user.dart';
+import 'package:github_search/src/features/home/domain/entity/user.dart';
 
 class UserModel extends User {
   UserModel({

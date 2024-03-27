@@ -1,7 +1,7 @@
-import 'package:github_search/features/favorites/domain/usecases/delete_favorite.dart';
-import 'package:github_search/features/favorites/domain/usecases/find_all_favorites.dart';
-import 'package:github_search/features/favorites/domain/usecases/save_favorite.dart';
-import 'package:github_search/features/home/domain/entity/user.dart';
+import 'package:github_search/src/features/favorites/domain/usecases/delete_favorite.dart';
+import 'package:github_search/src/features/favorites/domain/usecases/find_all_favorites.dart';
+import 'package:github_search/src/features/favorites/domain/usecases/save_favorite.dart';
+import 'package:github_search/src/features/home/domain/entity/user.dart';
 import 'package:mobx/mobx.dart';
 part 'favorites_controller.g.dart';
 

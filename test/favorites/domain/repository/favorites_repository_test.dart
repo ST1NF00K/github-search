@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/features/favorites/data/favorites_datasource.dart';
-import 'package:github_search/features/favorites/domain/repository/favorites_repository.dart';
-import 'package:github_search/features/favorites/domain/repository/favorites_repository_impl.dart';
-import 'package:github_search/features/home/data/models/user_model.dart';
+import 'package:github_search/src/features/favorites/data/favorites_datasource.dart';
+import 'package:github_search/src/features/favorites/domain/repository/favorites_repository.dart';
+import 'package:github_search/src/features/favorites/domain/repository/favorites_repository_impl.dart';
+import 'package:github_search/src/features/home/data/models/user_model.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../shared/shared_mocks.dart';

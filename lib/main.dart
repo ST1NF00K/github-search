@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:github_search/core/init_dependencies.dart';
-import 'package:github_search/features/favorites/utils/database_connection.dart';
-import 'package:github_search/features/home/view/pages/home_page.dart';
+import 'package:github_search/src/core/init_dependencies.dart';
+import 'package:github_search/src/features/favorites/utils/database_connection.dart';
+import 'package:github_search/src/features/home/view/pages/home_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

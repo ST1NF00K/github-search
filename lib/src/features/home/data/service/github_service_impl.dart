@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:github_search/features/home/data/models/user_model.dart';
-import 'package:github_search/features/home/domain/service/github_service.dart';
-import 'package:github_search/features/home/domain/entity/user.dart';
+import 'package:github_search/src/features/home/data/models/user_model.dart';
+import 'package:github_search/src/features/home/domain/service/github_service.dart';
+import 'package:github_search/src/features/home/domain/entity/user.dart';
 
 class GithubServiceImpl implements GithubService {
   final String _baseUrl = 'https://api.github.com';
