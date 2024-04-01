@@ -67,6 +67,17 @@ mixin _$GithubStore on _GithubStore, Store {
   }
 
   @override
+  void clearResults() {
+    final _$actionInfo = _$_GithubStoreActionController.startAction(
+        name: '_GithubStore.clearResults');
+    try {
+      return super.clearResults();
+    } finally {
+      _$_GithubStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 findAllRequest: ${findAllRequest},

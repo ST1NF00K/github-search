@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:github_search/src/core/init_dependencies.dart';
@@ -16,17 +18,33 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late GithubStore _githubStore;
   late TextEditingController _searchQueryController;
+  Timer? _debounce;
 
   @override
   void initState() {
     super.initState();
     _searchQueryController = TextEditingController(text: '');
     _githubStore = getIt<GithubStore>();
+
+    _searchQueryController.addListener(_onSearchChanged);
+  }
+
+  _onSearchChanged() {
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      String searchText = _searchQueryController.text.trim();
+      if (searchText.isNotEmpty) {
+        _githubStore.findAll(searchText);
+      } else {
+        _githubStore.clearResults();
+      }
+    });
   }
 
   @override
   void dispose() {
     _searchQueryController.dispose();
+    _debounce?.cancel();
     super.dispose();
   }
 
@@ -35,20 +53,17 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: TextField(
-            controller: _searchQueryController,
-            decoration: const InputDecoration(
-              hintText: "Search a user...",
-              border: InputBorder.none,
-            ),
-            onChanged: (String text) {
-              _searchQueryController.text = text;
-              _githubStore.findAll(_searchQueryController.text);
-            }),
+          controller: _searchQueryController,
+          decoration: const InputDecoration(
+            hintText: "Search a user...",
+            border: InputBorder.none,
+          ),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.close),
             onPressed: () {
-              _searchQueryController.text = '';
+              _searchQueryController.clear();
             },
           ),
         ],
@@ -70,7 +85,7 @@ class _HomePageState extends State<HomePage> {
               child: CircularProgressIndicator(),
             );
           } else if (_githubStore.findAllRequest.status == FutureStatus.rejected) {
-            return const Center(child: Text('Ocorreu um erro.'));
+            return const Center(child: Text('An error occurred.'));
           } else {
             return ListView.separated(
               itemCount: data!.length,
@@ -91,9 +106,7 @@ class _HomePageState extends State<HomePage> {
                   },
                 );
               },
-              separatorBuilder: (BuildContext context, int index) {
-                return const Divider();
-              },
+              separatorBuilder: (BuildContext context, int index) => const Divider(),
             );
           }
         }),

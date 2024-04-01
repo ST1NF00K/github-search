@@ -34,4 +34,9 @@ abstract class _GithubStore with Store {
   void findById(int id) {
     findByIdRequest = _findUserById.execute(id)!.asObservable();
   }
+
+  @action
+  void clearResults() {
+    findAllRequest = ObservableFuture.value([]);
+  }
 }
