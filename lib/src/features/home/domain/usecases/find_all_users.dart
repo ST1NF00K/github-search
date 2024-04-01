@@ -12,6 +12,6 @@ class FindAllUsersImpl implements FindAllUsers {
 
   @override
   Future<List<User>> execute(String searchQuery, {int page = 1, int perPage = 30}) async {
-    return await _githubService.findAll(searchQuery)!;
+    return await _githubService.findAll(searchQuery);
   }
 }

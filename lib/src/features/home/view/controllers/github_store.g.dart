@@ -41,19 +41,49 @@ mixin _$GithubStore on _GithubStore, Store {
     });
   }
 
-  late final _$_GithubStoreActionController =
-      ActionController(name: '_GithubStore', context: context);
+  late final _$usersListAtom =
+      Atom(name: '_GithubStore.usersList', context: context);
 
   @override
-  void findAll(String searchQuery) {
-    final _$actionInfo = _$_GithubStoreActionController.startAction(
-        name: '_GithubStore.findAll');
-    try {
-      return super.findAll(searchQuery);
-    } finally {
-      _$_GithubStoreActionController.endAction(_$actionInfo);
-    }
+  ObservableList<User> get usersList {
+    _$usersListAtom.reportRead();
+    return super.usersList;
   }
+
+  @override
+  set usersList(ObservableList<User> value) {
+    _$usersListAtom.reportWrite(value, super.usersList, () {
+      super.usersList = value;
+    });
+  }
+
+  late final _$isLoadingAtom =
+      Atom(name: '_GithubStore.isLoading', context: context);
+
+  @override
+  bool get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
+  }
+
+  @override
+  set isLoading(bool value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
+    });
+  }
+
+  late final _$findAllAsyncAction =
+      AsyncAction('_GithubStore.findAll', context: context);
+
+  @override
+  Future<void> findAll(String searchQuery, {int page = 1}) {
+    return _$findAllAsyncAction
+        .run(() => super.findAll(searchQuery, page: page));
+  }
+
+  late final _$_GithubStoreActionController =
+      ActionController(name: '_GithubStore', context: context);
 
   @override
   void findById(int id) {
@@ -81,7 +111,9 @@ mixin _$GithubStore on _GithubStore, Store {
   String toString() {
     return '''
 findAllRequest: ${findAllRequest},
-findByIdRequest: ${findByIdRequest}
+findByIdRequest: ${findByIdRequest},
+usersList: ${usersList},
+isLoading: ${isLoading}
     ''';
   }
 }

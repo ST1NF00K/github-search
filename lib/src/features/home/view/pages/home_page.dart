@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:github_search/src/core/init_dependencies.dart';
-import 'package:github_search/src/features/favorites/view/pages/favorites_page.dart';
 import 'package:github_search/src/features/home/view/controllers/github_store.dart';
 import 'package:github_search/src/features/home/view/pages/user_details_page.dart';
-import 'package:mobx/mobx.dart';
+
+import '../../../favorites/view/pages/favorites_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -18,31 +18,49 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late GithubStore _githubStore;
   late TextEditingController _searchQueryController;
+  late ScrollController _scrollController;
   Timer? _debounce;
+  int _currentPage = 1;
 
   @override
   void initState() {
     super.initState();
-    _searchQueryController = TextEditingController(text: '');
     _githubStore = getIt<GithubStore>();
+    _searchQueryController = TextEditingController();
+    _scrollController = ScrollController();
+    _scrollController.addListener(_onScroll);
     _searchQueryController.addListener(_onSearchChanged);
   }
 
-  _onSearchChanged() {
+  void _onSearchChanged() {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
     _debounce = Timer(const Duration(milliseconds: 500), () {
-      String searchText = _searchQueryController.text.trim();
+      final String searchText = _searchQueryController.text.trim();
       if (searchText.isNotEmpty) {
-        _githubStore.findAll(searchText);
+        _currentPage = 1;
+        _githubStore.clearResults();
+        _githubStore.findAll(searchText, page: _currentPage);
       } else {
         _githubStore.clearResults();
       }
     });
   }
 
+  void _onScroll() {
+    if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent && !_githubStore.isLoading) {
+      _loadMore();
+    }
+  }
+
+  Future<void> _loadMore() async {
+    _currentPage++;
+    _githubStore.findAll(_searchQueryController.text.trim(), page: _currentPage);
+  }
+
   @override
   void dispose() {
     _searchQueryController.dispose();
+    _scrollController.dispose();
     _debounce?.cancel();
     super.dispose();
   }
@@ -63,6 +81,7 @@ class _HomePageState extends State<HomePage> {
             icon: const Icon(Icons.close),
             onPressed: () {
               _searchQueryController.clear();
+              _githubStore.clearResults();
             },
           ),
         ],
@@ -75,20 +94,19 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Observer(builder: (BuildContext context) {
-          var data = _githubStore.findAllRequest.value;
-          if (_searchQueryController.text == '') {
-            return const SizedBox();
-          } else if (_githubStore.findAllRequest.status == FutureStatus.pending) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (_githubStore.findAllRequest.status == FutureStatus.rejected) {
-            return const Center(child: Text('An error occurred.'));
-          } else {
-            return ListView.separated(
-              itemCount: data!.length,
+        child: Observer(
+          builder: (_) {
+            var data = _githubStore.usersList;
+            bool isListNotEmpty = data.isNotEmpty;
+
+            return ListView.builder(
+              controller: _scrollController,
+              itemCount: isListNotEmpty ? data.length + 1 : 0,
               itemBuilder: (context, index) {
+                if (index == data.length) {
+                  return _githubStore.isLoading ? const Center(child: CircularProgressIndicator()) : Container();
+                }
+
                 return ListTile(
                   title: Text(data[index].login),
                   leading: CircleAvatar(
@@ -96,19 +114,17 @@ class _HomePageState extends State<HomePage> {
                   ),
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => UserDetailsPage(
-                            user: data[index],
-                          ),
-                        ));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => UserDetailsPage(user: data[index]),
+                      ),
+                    );
                   },
                 );
               },
-              separatorBuilder: (BuildContext context, int index) => const Divider(),
             );
-          }
-        }),
+          },
+        ),
       ),
     );
   }

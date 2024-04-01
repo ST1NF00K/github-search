@@ -1,7 +1,7 @@
+import 'package:mobx/mobx.dart';
 import 'package:github_search/src/features/home/domain/entity/user.dart';
 import 'package:github_search/src/features/home/domain/usecases/find_all_users.dart';
 import 'package:github_search/src/features/home/domain/usecases/find_user_by_id.dart';
-import 'package:mobx/mobx.dart';
 
 part 'github_store.g.dart';
 
@@ -10,6 +10,7 @@ class GithubStore = _GithubStore with _$GithubStore;
 abstract class _GithubStore with Store {
   final FindAllUsers _findAllUsers;
   final FindUserById _findUserById;
+
   _GithubStore(this._findAllUsers, this._findUserById);
 
   @observable
@@ -25,9 +26,24 @@ abstract class _GithubStore with Store {
     location: '',
   ));
 
+  @observable
+  ObservableList<User> usersList = ObservableList<User>();
+
+  @observable
+  bool isLoading = false;
+
   @action
-  void findAll(String searchQuery) {
-    findAllRequest = _findAllUsers.execute(searchQuery).asObservable();
+  Future<void> findAll(String searchQuery, {int page = 1}) async {
+    isLoading = true;
+    try {
+      final List<User> newUsers = await _findAllUsers.execute(searchQuery, page: page);
+      if (page == 1) {
+        usersList.clear();
+      }
+      usersList.addAll(newUsers);
+    } finally {
+      isLoading = false;
+    }
   }
 
   @action
@@ -37,6 +53,6 @@ abstract class _GithubStore with Store {
 
   @action
   void clearResults() {
-    findAllRequest = ObservableFuture.value([]);
+    usersList.clear();
   }
 }
