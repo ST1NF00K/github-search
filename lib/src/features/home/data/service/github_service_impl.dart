@@ -10,11 +10,13 @@ class GithubServiceImpl implements GithubService {
   GithubServiceImpl(this._dio);
 
   @override
-  Future<List<User>>? findAll(String searchQuery) async {
+  Future<List<User>> findAll(String searchQuery, {int page = 1, int perPage = 30}) async {
     try {
       final response = await _dio.get('$_baseUrl/search/users',
           queryParameters: {
             'q': searchQuery,
+            'page': page,
+            'per_page': perPage,
           },
           options: Options(headers: {'User-Agent': 'request'}));
 
@@ -24,7 +26,7 @@ class GithubServiceImpl implements GithubService {
         requestOptions: RequestOptions(path: '$_baseUrl/search/users'),
       );
     } catch (e) {
-      throw Exception("Error occured getting all the users.");
+      throw Exception("Error occurred getting all the users.");
     }
   }
 

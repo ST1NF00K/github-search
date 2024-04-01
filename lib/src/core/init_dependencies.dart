@@ -38,13 +38,13 @@ void setupRepositories() {
 
 void setupUsecases() {
   // home
-  getIt.registerFactory<FindAllUsers>(() => FindAllUsers(getIt<GithubService>()));
-  getIt.registerFactory<FindUserById>(() => FindUserById(getIt<GithubService>()));
+  getIt.registerFactory<FindAllUsers>(() => FindAllUsersImpl(getIt<GithubService>()));
+  getIt.registerFactory<FindUserById>(() => FindUserByIdImpl(getIt<GithubService>()));
 
   //favorites
-  getIt.registerFactory<FindAllFavorites>(() => FindAllFavorites(getIt<FavoritesRepository>()));
-  getIt.registerFactory<SaveFavorite>(() => SaveFavorite(getIt<FavoritesRepository>()));
-  getIt.registerFactory<DeleteFavorite>(() => DeleteFavorite(getIt<FavoritesRepository>()));
+  getIt.registerFactory<FindAllFavorites>(() => FindAllFavoritesImpl(getIt<FavoritesRepository>()));
+  getIt.registerFactory<SaveFavorite>(() => SaveFavoriteImpl(getIt<FavoritesRepository>()));
+  getIt.registerFactory<DeleteFavorite>(() => DeleteFavoriteImpl(getIt<FavoritesRepository>()));
 }
 
 void setupControllers() {

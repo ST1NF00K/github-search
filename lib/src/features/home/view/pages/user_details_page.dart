@@ -37,7 +37,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
               child: CircularProgressIndicator(),
             );
           } else if (request.status == FutureStatus.rejected) {
-            return const Center(child: Text('Username não encontrado'));
+            return const Center(child: Text('Nome de usuário não encontrado'));
           } else {
             return Text(request.value!.login);
           }

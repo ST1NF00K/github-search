@@ -25,7 +25,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _searchQueryController = TextEditingController(text: '');
     _githubStore = getIt<GithubStore>();
-
     _searchQueryController.addListener(_onSearchChanged);
   }
 

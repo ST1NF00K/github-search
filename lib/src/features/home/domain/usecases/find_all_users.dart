@@ -1,12 +1,17 @@
 import 'package:github_search/src/features/home/domain/service/github_service.dart';
 import 'package:github_search/src/features/home/domain/entity/user.dart';
 
-class FindAllUsers {
+abstract class FindAllUsers {
+  Future<List<User>> execute(String searchQuery, {int page = 1, int perPage = 30});
+}
+
+class FindAllUsersImpl implements FindAllUsers {
   final GithubService _githubService;
 
-  FindAllUsers(this._githubService);
+  FindAllUsersImpl(this._githubService);
 
-  Future<List<User>>? execute(String searchQuery) async {
+  @override
+  Future<List<User>> execute(String searchQuery, {int page = 1, int perPage = 30}) async {
     return await _githubService.findAll(searchQuery)!;
   }
 }

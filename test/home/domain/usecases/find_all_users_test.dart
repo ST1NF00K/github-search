@@ -14,7 +14,7 @@ void main() {
 
   setUp(() {
     mockGithubService = MockGithubService();
-    usecase = FindAllUsers(mockGithubService);
+    usecase = FindAllUsersImpl(mockGithubService);
   });
 
   test(

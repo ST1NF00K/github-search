@@ -16,7 +16,7 @@ void main() {
 
   setUp(() {
     favoritesRepository = FavoritesRepositoryMock();
-    usecase = SaveFavorite(favoritesRepository);
+    usecase = SaveFavoriteImpl(favoritesRepository);
   });
 
   test(
