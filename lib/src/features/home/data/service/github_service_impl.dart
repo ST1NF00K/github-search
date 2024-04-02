@@ -10,7 +10,7 @@ class GithubServiceImpl implements GithubService {
   GithubServiceImpl(this._dio);
 
   @override
-  Future<List<User>> findAll(String searchQuery, {int page = 1, int perPage = 30}) async {
+  Future<List<User>> findAll(String searchQuery, {required int page, int perPage = 30}) async {
     try {
       final response = await _dio.get('$_baseUrl/search/users',
           queryParameters: {

@@ -33,7 +33,7 @@ abstract class _GithubStore with Store {
   bool isLoading = false;
 
   @action
-  Future<void> findAll(String searchQuery, {int page = 1}) async {
+  Future<void> findAll(String searchQuery, {required int page}) async {
     isLoading = true;
     try {
       final List<User> newUsers = await _findAllUsers.execute(searchQuery, page: page);

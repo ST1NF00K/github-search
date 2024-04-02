@@ -22,9 +22,9 @@ void main() {
     () async {
       final data = jsonDecode(mockUserList)["data"] as List;
       final response = data.map((e) => UserModel.fromJson(e)).toList();
-      when(mockGithubService.findAll("Lily")).thenAnswer((_) async => response);
+      when(mockGithubService.findAll("Lily", page: 1)).thenAnswer((_) async => response);
 
-      final result = await usecase.execute("Lily");
+      final result = await usecase.execute("Lily", page: 1);
 
       expect(result, response);
     },

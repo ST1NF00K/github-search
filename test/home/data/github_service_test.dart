@@ -59,7 +59,7 @@ void main() {
           ),
         );
 
-        final response = service.findAll('lily');
+        final response = service.findAll('lily', page: 1);
 
         await expectLater(response, throwsA((e) => e is DioError));
       },

@@ -77,7 +77,7 @@ mixin _$GithubStore on _GithubStore, Store {
       AsyncAction('_GithubStore.findAll', context: context);
 
   @override
-  Future<void> findAll(String searchQuery, {int page = 1}) {
+  Future<void> findAll(String searchQuery, {required int page}) {
     return _$findAllAsyncAction
         .run(() => super.findAll(searchQuery, page: page));
   }
